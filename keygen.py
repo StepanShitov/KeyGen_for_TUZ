@@ -17,9 +17,9 @@ def get_password_domen(password_len):
             "\n2. Sigma ( пароль будет иметь префикс S#" \
             "\nВведите ответ: ")
         if domen.isdecimal() and 1 <= int(domen) <= 2:
-            return round(int(domen))
-        else:
-            print("Укажите правильный домен!")
+                return round(int(domen))
+        print("Укажите правильный домен!")
+        domen = 0
 
 def upload_words():
     words = []
@@ -70,7 +70,6 @@ def generate_password_base(password_len, words, alphabet):
 
     return words_to_include
 
-
 def generate_password(password_len, domen):
     words = upload_words()
     alphabet = upload_alphabet()
@@ -103,12 +102,18 @@ def choose_password(passwords):
             print("Введите правильный номер!")
             user_choice = -1
 
+def load_to_file(password):
+    print("Сгененрированный пароль будет загружен в файл: password.txt")
+    with open("password.txt", 'w') as load_file:
+        load_file.write(password)
+
 # S# is for sigma password, A# is for alpha
 def main():
     password_len = 16 #get_password_len()
     domen = get_password_domen(password_len)
     list_to_choose = generate_password(password_len, domen)
-    print(choose_password(list_to_choose))
+    chosen_password = choose_password(list_to_choose)
+    load_to_file(chosen_password)
     
 if __name__ == "__main__":
     main()
